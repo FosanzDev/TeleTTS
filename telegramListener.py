@@ -9,7 +9,7 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message.text
     filepath = await ttsConnector.synth(message, update.message.chat_id)
     with open(filepath, "rb") as f:
-        await context.bot.send_audio(chat_id=update.message.chat_id, audio=f, reply_to_message_id=update.message.message_id)
+        await context.bot.send_document(chat_id=update.message.chat_id, document=f, reply_to_message_id=update.message.message_id)
 
     os.remove(filepath)
 

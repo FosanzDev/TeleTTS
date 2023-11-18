@@ -7,8 +7,10 @@ ttsConnector = TTSConnector(os.environ["OPENAI_API_KEY"])
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message.text
-    filepath = await ttsConnector.synth(message)
-    await context.bot.send_voice(chat_id=update.message.chat_id, voice=open(filepath, "rb"))
+    filepath = await ttsConnector.synth(message, update.message.chat_id)
+    with open(filepath, "rb") as f:
+        await context.bot.send_audio(chat_id=update.message.chat_id, audio=f, reply_to_message_id=update.message.message_id)
+
     os.remove(filepath)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -19,8 +21,10 @@ if __name__ == '__main__':
     # Create the application
     application = ApplicationBuilder().token(os.environ["TELETTS_TOKEN"]).build()
 
+    text_listener = MessageHandler(filters.TEXT, on_message, block=False)
+
     # Register the on_message function to handle messages
     application.add_handler(CommandHandler('start', start))
-    application.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), on_message, block=False))
+    application.add_handler(text_listener)
 
     application.run_polling()

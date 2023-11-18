@@ -17,7 +17,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == '__main__':
     # Create the application
-    application = ApplicationBuilder().token('6921565461:AAFTxauZMXJDFvnwvLFnMuTU5-4O0rN1Dn8').build()
+    application = ApplicationBuilder().token(os.environ["TELETTS_TOKEN"]).build()
 
     # Register the on_message function to handle messages
     application.add_handler(CommandHandler('start', start))

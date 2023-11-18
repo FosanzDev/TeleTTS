@@ -1,0 +1,35 @@
+# FILEPATH: /c:/Users/fosan/OneDrive/Escritorio/Projects/TeleTTS/.gitignore
+
+# Python-specific files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+env.bak/
+env1/
+env2/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Compiled files
+*.exe
+*.dll
+*.so
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# OS-specific files
+.DS_Store
+Thumbs.db

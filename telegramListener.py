@@ -7,6 +7,9 @@ ttsConnector = TTSConnector(os.environ["OPENAI_API_KEY"])
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.message.text
+    if len(message) > 1000:
+        await update.message.reply_text("Sorry, I can only convert messages up to 1000 characters long. A new version with a 'pro' plan will be released soon. Sorry for the inconvenience, and stay tuned! - @Fosanz")
+        return
     filepath = await ttsConnector.synth(message, update.message.chat_id)
     with open(filepath, "rb") as f:
         await context.bot.send_document(chat_id=update.message.chat_id, document=f, reply_to_message_id=update.message.message_id)
